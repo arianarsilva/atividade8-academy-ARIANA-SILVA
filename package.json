@@ -1,5 +1,5 @@
 {
-  "name": "atividade8-academy-ariana-silva",
+  "name": "testes-web-cypress",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": "cypress/support/steps/[filepart].step.js"
+  },
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^20.0.5",
-    "cypress": "^13.9.0"
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "cypress": "^13.8.0",
+    "esbuild": "^0.20.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1"
   }
 }
+
