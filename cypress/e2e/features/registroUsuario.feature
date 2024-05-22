@@ -8,26 +8,38 @@ Funcionalidade: Registro de Usuários
 Contexto: O usuário deve ter acessado a funcionalidade de registro 
     Dado que acessei a página inicial
 
-
+# @ignore
 Cenário: Registro de Usuário com sucesso
     Quando informar nome, email e senha válidos
     E confirmar operação
     Então o usuário será cadastrado
 
-
+# @ignore
 Cenário: Não deve ser possível cadastrar usuário sem nome
     Quando informar um email e senha válidos
     E confirmar operação
     Então o usuário não será cadastrado
 
+# @ignore
 Cenário: Não deve ser possível cadastrar usuário sem e-mail
     Quando informar um nome e senha válidos
     E confirmar operação
     Então o cadastro não será realizado
 
-# Cenário: Não deve ser possível cadastrar usuário sem senha
+# @ignore
+Cenário: Não deve ser possível cadastrar usuário sem senha
+    Quando informar um nome e email válidos
+    E confirmar operação
+    Então o cadastro não será concluído
 
-# Cenário: Não deve ser possível cadastrar usuário usuário com e-mail existente
+@cadastro
+Cenário: Não deve ser possível cadastrar usuário com e-mail existente
+    Quando informar um novo nome válido
+    E informar um email que já está em uso
+    E informar e confirmar senha válida
+    E confirmar operação
+    Então irei visualizar a mensagem de erro "E-mail já cadastrado. Utilize outro e-mail"
+
 
 # Cenário: O usuário criado deve ser do tipo comum
 

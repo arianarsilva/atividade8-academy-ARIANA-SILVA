@@ -1,9 +1,27 @@
-import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import { Given, When, Then, Before } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
 import RegistroPage from "../pages/registroUsuario.page";
 
 
 var registroPage = new RegistroPage();
+
+var novoUsuario = {
+    name: faker.person.fullName(),
+    email: faker.internet.email(),
+    password: "1234567"
+}
+
+// Before({ tags: '@cadastro' }, () => {
+//     cy.intercept(
+//         'POST',
+//         'https://raromdb-3c39614e42d4.herokuapp.com/api/users',
+//         {
+//             statusCode: 409,
+//             body: {
+//                 message: "Email already in use",
+//             },
+//         }).as('postUser');
+// });
 
 Given('que acessei a página inicial', function () {
     cy.visit('/register');
@@ -16,7 +34,7 @@ When('informar nome, email e senha válidos', function () {
 
     registroPage.cadastrar(nome, email, senha, senha);
     cy.wrap(email).as('emailFaker');
-    cy.get('@emailFaker').then((email) => cy.log(email));    
+    cy.get('@emailFaker').then((email) => cy.log(email));
 })
 
 When('confirmar operação', function () {
@@ -41,7 +59,7 @@ When('informar um email e senha válidos', function () {
 
 })
 
-Then('o usuário não será cadastrado', function (){
+Then('o usuário não será cadastrado', function () {
     registroPage.clickButtonCadastrar();
     cy.contains(registroPage.spanName, 'Informe o nome').should('be.visible');
 })
@@ -52,13 +70,56 @@ When('informar um nome e senha válidos', function () {
     registroPage.typeConfirmeSenha('123456');
 
 })
-Then('o cadastro não será realizado', function (){
+Then('o cadastro não será realizado', function () {
     registroPage.clickButtonCadastrar();
     cy.contains(registroPage.spanEmail, 'Informe o e-mail').should('be.visible');
 })
 
+When('informar um nome e email válidos', function () {
+    registroPage.typeNome('Fulano de Tal');
+    registroPage.typeEmail('fulano@teste.com');
 
+})
 
-// Quando informar um nome e senha válidos
-// E confirmar operação
-// Então o cadastro não será realizado
+Then('o cadastro não será concluído', function () {
+    registroPage.clickButtonCadastrar();
+    cy.contains(registroPage.spanSenha, 'Informe a senha').should('be.visible');
+})
+
+// 
+When('informar um novo nome válido', function () {
+    const nome = faker.person.fullName();
+    registroPage.typeNome(nome);
+})
+
+When('informar um email que já está em uso', function () {
+    cy.intercept(
+        'POST',
+        'https://raromdb-3c39614e42d4.herokuapp.com/api/users',
+        {
+            statusCode: 409,
+            body: {
+                message: "Email already in use",
+            },
+        }).as('postUser');
+    registroPage.typeEmail(faker.internet.email());
+});
+
+When('informar e confirmar senha válida', function () {
+    const senha = '1234567'
+    registroPage.typeSenha(senha);
+    registroPage.typeConfirmeSenha(senha);
+})
+
+// When('confirmar a operação de cadastrar usuário', function () {
+//     cy.intercept(
+//         'POST',
+//         'https://raromdb-3c39614e42d4.herokuapp.com/api/users'
+//     ).as('postUser'),
+//         registroPage.clickButtonCadastrar();
+// })
+
+Then('irei visualizar a mensagem de erro {string}', function (mensagem) {
+    cy.get(registroPage.erroMessageEmail).contains(mensagem);
+    cy.get(registroPage.buttonOk).should('be.visible');
+})

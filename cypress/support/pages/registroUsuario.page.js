@@ -10,6 +10,10 @@ export default class RegistroPage{
     modalSucesso = '.modal-content';
     spanName = '.input-error';
     spanEmail = '.input-error';
+    spanSenha = '.input-error';
+    erroMessageEmail = '.error-message';
+    
+    buttonOk = '.modal-actions';
 
     typeNome(nome) {
         cy.get(this.inputNome).type(nome);
