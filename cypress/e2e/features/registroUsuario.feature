@@ -32,7 +32,7 @@ Cenário: Não deve ser possível cadastrar usuário sem senha
     E confirmar operação
     Então o cadastro não será concluído
 
-@cadastro
+# @ignore
 Cenário: Não deve ser possível cadastrar usuário com e-mail existente
     Quando informar um novo nome válido
     E informar um email que já está em uso
@@ -41,7 +41,10 @@ Cenário: Não deve ser possível cadastrar usuário com e-mail existente
     Então irei visualizar a mensagem de erro "E-mail já cadastrado. Utilize outro e-mail"
 
 
-# Cenário: O usuário criado deve ser do tipo comum
+@cadastro
+Cenário: O usuário criado deve ser do tipo comum
+    Quando criar um novo usuário
+    Então o usuário criado será do tipo Comum
 
 # Esquema do Cenário: Não deve ser possível registrar usuário com e-mail inválido
 #     Quando informar um nome válido

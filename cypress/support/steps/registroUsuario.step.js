@@ -8,20 +8,20 @@ var registroPage = new RegistroPage();
 var novoUsuario = {
     name: faker.person.fullName(),
     email: faker.internet.email(),
-    password: "1234567"
+    password: '1234567'
 }
+var type;
 
-// Before({ tags: '@cadastro' }, () => {
-//     cy.intercept(
-//         'POST',
-//         'https://raromdb-3c39614e42d4.herokuapp.com/api/users',
-//         {
-//             statusCode: 409,
-//             body: {
-//                 message: "Email already in use",
-//             },
-//         }).as('postUser');
-// });
+Before({ tags: '@cadastro' }, () => {
+    cy.request({
+        method: 'POST',
+        url: 'https://raromdb-3c39614e42d4.herokuapp.com/api/users',
+            body: novoUsuario
+        }).then((response) => {
+            expect(response.body.type).be.equal(0)
+            type = response.body.type;
+        });
+});
 
 Given('que acessei a página inicial', function () {
     cy.visit('/register');
@@ -111,15 +111,24 @@ When('informar e confirmar senha válida', function () {
     registroPage.typeConfirmeSenha(senha);
 })
 
-// When('confirmar a operação de cadastrar usuário', function () {
-//     cy.intercept(
-//         'POST',
-//         'https://raromdb-3c39614e42d4.herokuapp.com/api/users'
-//     ).as('postUser'),
-//         registroPage.clickButtonCadastrar();
-// })
 
 Then('irei visualizar a mensagem de erro {string}', function (mensagem) {
     cy.get(registroPage.erroMessageEmail).contains(mensagem);
     cy.get(registroPage.buttonOk).should('be.visible');
 })
+
+When('criar um novo usuário', function () {
+    //registroPage.cadastrar(novoUsuario.name, novoUsuario.email, novoUsuario.password, novoUsuario.password)
+
+})
+
+Then('o usuário criado será do tipo Comum', function () {
+    cy.contains('type').should.be.equal(0);
+
+})
+
+
+
+// Cenário: O usuário criado deve ser do tipo comum
+//     Quando criar um novo usuário
+//     Então o usuário criado será do tipo Comum

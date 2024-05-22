@@ -35,11 +35,11 @@ export default class RegistroPage{
         cy.get(this.buttonCadastrar).click();
     }
 
-    cadastrar(nome, email, senha, confirmeSenha) {
+    cadastrar(nome, email, senha, senha) {
         cy.get(this.inputNome).type(nome);
         cy.get(this.inputEmail).type(email);
         cy.get(this.inputSenha).type(senha);
-        cy.get(this.inputConfirmeSenha).type(confirmeSenha);
+        cy.get(this.inputConfirmeSenha).type(senha);
 
     }    
 
