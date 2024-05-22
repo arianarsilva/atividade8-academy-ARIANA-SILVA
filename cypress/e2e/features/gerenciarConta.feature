@@ -44,7 +44,6 @@ Cenário: Não deve ser possível atualizar conta sem confirmar nova senha
   E confirmar operação
   Então não será possível atualizar cadastro
 
-
 # @ignore
 Cenário: Não deve ser possível deixar o campo nome em branco
   E habilitei a edição do cadastro

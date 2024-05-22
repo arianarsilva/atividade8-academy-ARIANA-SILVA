@@ -2,6 +2,7 @@ export default class LoginPage {
 
 inputEmail = 'input[placeholder="E-mail"]';
 inputSenha = 'input[placeholder="Password"]';
+paginaInicial = '#root';
 
 loginButton = '.login-button';
 
