@@ -110,11 +110,81 @@ Then('irei visualizar a mensagem de erro {string}', function (mensagem) {
 
 When('criar um novo usuário', function () {
     registroPage.cadastrar(novoUsuario.name, novoUsuario.email, novoUsuario.password, novoUsuario.password);
-
 })
 
 Then('o usuário criado será do tipo Comum', function () {
     cy.get('@postUser').then((response) => {
         expect(response.body.type).be.equal(0)
     })
+})
+
+When('informar um nome válido', function () {
+    registroPage.typeNome('Enedina Alves Marques')
+})
+
+When('informar um email válido', function () {
+    registroPage.typeEmail(faker.internet.email());
+
+})
+
+When('informar e confirmar senha {string}', function (senha) {
+    registroPage.typeSenha(senha);
+    registroPage.typeConfirmeSenha(senha);
+})
+
+When('validar operação', function () {
+    registroPage.clickButtonCadastrar();
+})
+
+Then('irei visualizar a mensagem {string}', function (mensagem) {
+    cy.get(registroPage.spanErro).contains(mensagem);
+
+})
+
+When('informar email inválido {string}', function (email) {
+    registroPage.typeEmail(email);
+})
+
+When('informar e confirmar uma senha válida', function () {
+    registroPage.typeSenha('1234567');
+    registroPage.typeConfirmeSenha('1234567');
+
+})
+
+When('validar a operação', function () {
+    registroPage.clickButtonCadastrar();
+
+})
+
+Then('irei visualizar o erro de formulário {string}', function (mensagem) {
+    cy.get(registroPage.erroMessageEmail).contains(mensagem);
+})
+
+When('informar um nome {string}', function (nome) {
+    registroPage.typeNome(nome);
+})
+
+When('confirmar a operação', function () {
+cy.intercept({
+    method: 'POST',
+    url: 'https://raromdb-3c39614e42d4.herokuapp.com/api/users',
+}).as('postUsuario');
+registroPage.clickButtonCadastrar();
+})
+
+Then('o usuário será cadastrado com sucesso', function () {
+    cy.contains(registroPage.modalSucesso, 'Cadastro realizado!').should('be.visible');
+})
+
+When('informar senha válida', function () {
+    registroPage.typeSenha('1234567');
+
+})
+
+When('informar senha diferente da digitada anterior', function() {
+    registroPage.typeConfirmeSenha('abcdefgh')
+})
+
+Then('não será possível realizar cadastro', function() {
+    cy.contains('As senhas devem ser iguais.').should('be.visible')
 })

@@ -13,6 +13,7 @@ export default class RegistroPage{
     spanSenha = '.input-error';
     erroMessageEmail = '.error-message';
     
+    spanErro = '.input-error';
     buttonOk = '.modal-actions';
 
     typeNome(nome) {

@@ -8,12 +8,12 @@ Para conseguir gerenciar meus dados
 Contexto: O usuário deve ter acessado a funcionalidade de registro
 Dado que acessei minha conta
 
-# @ignore
+
 Cenário: Deve ser possível visualizar todos os dados relevantes do perfil
   Quando acesso à página de gerenciamento de conta
   Então é possível visualizar todos os dados relevantes do perfil
 
-# @ignore
+
 Cenário: Deve ser possível atualizar somente o nome
   Quando habilitar a edição do cadastro
   E informar novo nome
@@ -21,14 +21,14 @@ Cenário: Deve ser possível atualizar somente o nome
   E confirmar operação
   Então a atualização será realizada com sucesso
 
-# @ignore
+
 Cenário: Não deve ser possível atualizar conta sem informar e confirmar senha
   Quando habilitar a edição do cadastro
   E informar novo nome
   E confirmar operação
   Então será possível visualizar mensagem de erro
 
-# @ignore
+
 Cenário: Não deve ser possível atualizar conta sem informar nova senha
   Quando habilitar a edição do cadastro
   E informar novo nome
@@ -36,7 +36,7 @@ Cenário: Não deve ser possível atualizar conta sem informar nova senha
   E confirmar operação
   Então não será possível atualizar cadastro
 
-# @ignore
+
 Cenário: Não deve ser possível atualizar conta sem confirmar nova senha
   Quando habilitar a edição do cadastro
   E informar novo nome
@@ -44,7 +44,7 @@ Cenário: Não deve ser possível atualizar conta sem confirmar nova senha
   E confirmar operação
   Então não será possível atualizar cadastro sem confirmar senha
 
-# @ignore
+
 Cenário: Não deve ser possível deixar o campo nome em branco
   Quando habilitar a edição do cadastro
   E apagar o nome atual

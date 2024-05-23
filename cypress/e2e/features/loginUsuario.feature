@@ -9,14 +9,14 @@ Funcionalidade: Login de usuários
 Contexto: O usuário deve ter acessado a funcionalidade de registro
 Dado que acessei a página de login
 
-# @ignore
+
 Cenário: Acesso à conta com sucesso
   Quando informar email cadastrado
   E informar senha cadastrada
   E confirmar a operação
   Então serei direcionado para minha conta
 
-# @ignore
+
 Esquema do Cenário: Não deve ser possível acessar conta com email inválido
   Quando informar email "<email>" inválido 
   E informar senha cadastrada
@@ -32,20 +32,20 @@ Esquema do Cenário: Não deve ser possível acessar conta com email inválido
     | .com        | Usuário ou senha inválidos. |
 
 
-# @ignore
+
 Cenário: Não deve ser possível acessar conta com senha inválida
   Quando informar email cadastrado
   E informar senha inválida
   E confirmar a operação
   Então o login não será efetuado com sucesso
 
-# @ignore
+
 Cenário: Não deve ser possível acessar conta com o campo de email em branco
   Quando informar apenas senha cadastrada
   E confirmar a operação
   Então aparecerá a mensagem de alerta para o campo de email
 
-# @ignore
+
 Cenário: Não deve ser possível acessar conta com o campo de senha em branco
   Quando informar apenas email cadastrado
   E confirmar a operação
