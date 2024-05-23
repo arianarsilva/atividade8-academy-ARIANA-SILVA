@@ -20,74 +20,70 @@ before(() => {
     })
 })
 
-//  before(() =>{
-//     cy.visit('/account');
-//     loginPage.typeEmail(user.email);
-//     loginPage.typeSenha(user.password);
-//     loginPage.clickbuttonLogin();
-//  })
-
 Given('que acessei minha conta', function () {
     cy.visit('/account');
     loginPage.typeEmail(user.email);
     loginPage.typeSenha(user.password);
     loginPage.clickbuttonLogin();
-
-})
-
-When('acesso à página de gerenciamento de conta', function () {
     gerenciarPage.clickLinkPerfil();
     gerenciarPage.clickAccountLink();
-
 })
+
+When('acesso à página de gerenciamento de conta', function () {})
 
 Then('é possível visualizar todos os dados relevantes do perfil', function () {
     cy.get(gerenciarPage.inputNome).invoke('val').should('equal', user.name);
+    cy.get(gerenciarPage.inputEmail).invoke('val').should('equal', user.email);
+    cy.contains('Comum').should('be.visible');
 })
 
 When('habilitar a edição do cadastro', function () {
-
+    gerenciarPage.clickButtonAlterar();
 })
 
 When('informar novo nome', function () {
-
+    cy.get(gerenciarPage.inputNome).clear();
+    gerenciarPage.typeNome('Marilda Silva')
 })
 
 When('informar e confirmar senha', function () {
-
+    gerenciarPage.typeSenha(user.password);
+    gerenciarPage.typeConfirma(user.password);
 })
 
 When('confirmar operação', function () {
-
+    gerenciarPage.clickButtonSalvar();
 })
 
 Then('a atualização será realizada com sucesso', function () {
-
+    cy.contains('Informações atualizadas!').should('be.visible');
 })
 
 Then('será possível visualizar mensagem de erro', function () {
-
+    cy.contains('Campo obrigatório').should('be.visible');
+    cy.contains('As senhas devem ser iguais.').should('be.visible');
 })
+
 When('informar nova senha apenas no primeiro campo', function () {
-
-})
-
-When('informar nova senha apenas no campo de confirmação', function () {
-
+    gerenciarPage.typeSenha('abcdefgh');
 })
 
 Then('não será possível atualizar cadastro', function () {
+    cy.contains('Campo obrigatório').should('be.visible');
+})
 
+When('informar nova senha apenas no campo de confirmação', function () {
+    gerenciarPage.typeConfirma('abcdefgh');
 })
 
 Then('não será possível atualizar cadastro sem confirmar senha', function () {
-
+    cy.contains('As senhas devem ser iguais.').should('be.visible');
 })
 
 When('apagar o nome atual', function () {
-
+    cy.get(gerenciarPage.inputNome).clear();
 })
 
 Then('não será possível atualizar cadastro sem informar um nome', function () {
-
+    cy.contains('Informe o nome').should('be.visible');
 })

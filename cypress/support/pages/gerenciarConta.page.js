@@ -2,9 +2,13 @@ export default class GerenciarPage {
 
     inputNome = 'input[placeholder="Nome"]';
     inputSenha = 'input[placeholder="Senha"]';
+    inputEmail = 'input[placeholder="E-mail"]';
     inputConfirma = 'input[placeholder="Confirmar senha"]';
+    inputTipoUser = '.profile-input';
 
     buttonAlterar = '.account-password-button';
+    buttonSalvar = '.account-save-button';
+
     spanNome = '.input-error';
 
     linkPerfil = '[href="/profile"]';
@@ -29,5 +33,13 @@ export default class GerenciarPage {
 
     clickAccountLink() {
         cy.get(this.accountLink).click();
+    }
+
+    clickButtonAlterar() {
+        cy.get(this.buttonAlterar).click();
+    }
+
+    clickButtonSalvar() {
+        cy.get(this.buttonSalvar).click();
     }
 }
