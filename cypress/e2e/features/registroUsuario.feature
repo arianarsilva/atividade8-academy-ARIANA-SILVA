@@ -8,31 +8,31 @@ Funcionalidade: Registro de Usuários
 Contexto: O usuário deve ter acessado a funcionalidade de registro 
     Dado que acessei a página inicial
 
-# @ignore
+@ignore
 Cenário: Registro de Usuário com sucesso
     Quando informar nome, email e senha válidos
     E confirmar operação
     Então o usuário será cadastrado
 
-# @ignore
+@ignore
 Cenário: Não deve ser possível cadastrar usuário sem nome
     Quando informar um email e senha válidos
     E confirmar operação
     Então o usuário não será cadastrado
 
-# @ignore
+@ignore
 Cenário: Não deve ser possível cadastrar usuário sem e-mail
     Quando informar um nome e senha válidos
     E confirmar operação
     Então o cadastro não será realizado
 
-# @ignore
+@ignore
 Cenário: Não deve ser possível cadastrar usuário sem senha
     Quando informar um nome e email válidos
     E confirmar operação
     Então o cadastro não será concluído
 
-# @ignore
+@ignore
 Cenário: Não deve ser possível cadastrar usuário com e-mail existente
     Quando informar um novo nome válido
     E informar um email que já está em uso
@@ -53,13 +53,13 @@ Cenário: O usuário criado deve ser do tipo comum
 #     E confirmar a operação
 #     Então irei visualizar o erro de formulário "<mensagem>"
 #     Exemplos:
-#     | email       | mensagem                                |
-#     | umemail     | "Não foi possível cadastrar o usuário." |
-#     | umemail.com | "Não foi possível cadastrar o usuário." |
-#     | umemail@com | "Não foi possível cadastrar o usuário." |
-#     | @           | "Não foi possível cadastrar o usuário." |
-#     | @.com       | "Não foi possível cadastrar o usuário." |
-#     | .com        | "Não foi possível cadastrar o usuário." |
+#     | email       | mensagem                              |
+#     | umemail     | Não foi possível cadastrar o usuário. |
+#     | umemail.com | Não foi possível cadastrar o usuário. |
+#     | umemail@com | Não foi possível cadastrar o usuário. |
+#     | @           | Não foi possível cadastrar o usuário. |
+#     | @.com       | Não foi possível cadastrar o usuário. |
+#     | .com        | Não foi possível cadastrar o usuário. |
 
 # Esquema do Cenário: Não deve ser possível cadastrar usuário com senha entre 6 e 12 dígitos
 #     Quando informar um nome válido

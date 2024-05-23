@@ -10,17 +10,13 @@ var novoUsuario = {
     email: faker.internet.email(),
     password: '1234567'
 }
-var type;
 
 Before({ tags: '@cadastro' }, () => {
     cy.request({
         method: 'POST',
         url: 'https://raromdb-3c39614e42d4.herokuapp.com/api/users',
-            body: novoUsuario
-        }).then((response) => {
-            expect(response.body.type).be.equal(0)
-            type = response.body.type;
-        });
+        body: novoUsuario
+    }).as('postUser')
 });
 
 Given('que acessei a página inicial', function () {
@@ -47,7 +43,6 @@ When('confirmar operação', function () {
 
 Then('o usuário será cadastrado', function () {
     cy.contains(registroPage.modalSucesso, 'Cadastro realizado!').should('be.visible');
-
 })
 
 When('informar um email e senha válidos', function () {
@@ -56,7 +51,6 @@ When('informar um email e senha válidos', function () {
     registroPage.typeEmail(email);
     registroPage.typeSenha(senha);
     registroPage.typeConfirmeSenha(senha);
-
 })
 
 Then('o usuário não será cadastrado', function () {
@@ -68,8 +62,8 @@ When('informar um nome e senha válidos', function () {
     registroPage.typeNome('Silva Sauro');
     registroPage.typeSenha('123456');
     registroPage.typeConfirmeSenha('123456');
-
 })
+
 Then('o cadastro não será realizado', function () {
     registroPage.clickButtonCadastrar();
     cy.contains(registroPage.spanEmail, 'Informe o e-mail').should('be.visible');
@@ -78,7 +72,6 @@ Then('o cadastro não será realizado', function () {
 When('informar um nome e email válidos', function () {
     registroPage.typeNome('Fulano de Tal');
     registroPage.typeEmail('fulano@teste.com');
-
 })
 
 Then('o cadastro não será concluído', function () {
@@ -86,7 +79,6 @@ Then('o cadastro não será concluído', function () {
     cy.contains(registroPage.spanSenha, 'Informe a senha').should('be.visible');
 })
 
-// 
 When('informar um novo nome válido', function () {
     const nome = faker.person.fullName();
     registroPage.typeNome(nome);
@@ -111,24 +103,18 @@ When('informar e confirmar senha válida', function () {
     registroPage.typeConfirmeSenha(senha);
 })
 
-
 Then('irei visualizar a mensagem de erro {string}', function (mensagem) {
     cy.get(registroPage.erroMessageEmail).contains(mensagem);
     cy.get(registroPage.buttonOk).should('be.visible');
 })
 
 When('criar um novo usuário', function () {
-    //registroPage.cadastrar(novoUsuario.name, novoUsuario.email, novoUsuario.password, novoUsuario.password)
+    registroPage.cadastrar(novoUsuario.name, novoUsuario.email, novoUsuario.password, novoUsuario.password);
 
 })
 
 Then('o usuário criado será do tipo Comum', function () {
-    cy.contains('type').should.be.equal(0);
-
+    cy.get('@postUser').then((response) => {
+        expect(response.body.type).be.equal(0)
+    })
 })
-
-
-
-// Cenário: O usuário criado deve ser do tipo comum
-//     Quando criar um novo usuário
-//     Então o usuário criado será do tipo Comum
