@@ -7,6 +7,10 @@ export default class GerenciarPage {
     buttonAlterar = '.account-password-button';
     spanNome = '.input-error';
 
+    linkPerfil = '[href="/profile"]';
+
+    accountLink = '[href="/account"]';
+
     typeNome(nome) {
         cy.get(this.inputNome).type(nome);
     }
@@ -17,5 +21,13 @@ export default class GerenciarPage {
 
     typeConfirma(senha) {
         cy.get(this.inputConfirma).type(senha);
+    }
+
+    clickLinkPerfil() {
+        cy.get(this.linkPerfil).click();
+    }
+
+    clickAccountLink() {
+        cy.get(this.accountLink).click();
     }
 }
